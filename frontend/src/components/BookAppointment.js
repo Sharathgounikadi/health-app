@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import "tailwindcss/tailwind.css"; // Ensure Tailwind CSS is properly configured
 
 const BookAppointment = () => {
-  const [patients, setPatients] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -10,73 +9,16 @@ const BookAppointment = () => {
     disease: "",
     doctorId: "",
   });
-  const [isEditing, setIsEditing] = useState(false);
-  const [editingId, setEditingId] = useState(null);
-
-  // Fetch all patients
-  useEffect(() => {
-    axios
-      .get('https://health-app-helg.onrender.com/api/patients')
-      .then((response) => {
-        setPatients(response.data);
-      })
-      .catch((error) => console.error("Error fetching patients:", error));
-  }, []);
 
   // Handle form input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Add or edit a patient
+  // Handle form submission (currently just logs the data)
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isEditing) {
-      // Update patient
-      axios
-        .put(`https://health-app-helg.onrender.com/api/patients/${editingId}`, formData)
-        .then((response) => {
-          setPatients((prev) =>
-            prev.map((patient) =>
-              patient.id === editingId ? response.data : patient
-            )
-          );
-          resetForm();
-        })
-        .catch((error) => console.error("Error updating patient:", error));
-    } else {
-      // Create new patient
-      axios
-        .post("/api/patients", formData)
-        .then((response) => {
-          setPatients((prev) => [...prev, response.data]);
-          resetForm();
-        })
-        .catch((error) => console.error("Error adding patient:", error));
-    }
-  };
-
-  // Delete a patient
-  const handleDelete = (id) => {
-    axios
-      .delete(`/api/patients/${id}`)
-      .then(() => {
-        setPatients((prev) => prev.filter((patient) => patient.id !== id));
-      })
-      .catch((error) => console.error("Error deleting patient:", error));
-  };
-
-  // Edit a patient
-  const handleEdit = (patient) => {
-    setIsEditing(true);
-    setEditingId(patient.id);
-    setFormData({
-      name: patient.name,
-      age: patient.age,
-      gender: patient.gender,
-      disease: patient.disease,
-      doctorId: patient.doctorId,
-    });
+    console.log("Form submitted", formData);
   };
 
   // Reset form
@@ -88,71 +30,106 @@ const BookAppointment = () => {
       disease: "",
       doctorId: "",
     });
-    setIsEditing(false);
-    setEditingId(null);
   };
 
   return (
-    <div>
-      <h1>Book Appointment</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="age"
-          placeholder="Age"
-          value={formData.age}
-          onChange={handleChange}
-          required
-        />
-        <select
-          name="gender"
-          value={formData.gender}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-        <input
-          type="text"
-          name="disease"
-          placeholder="Disease"
-          value={formData.disease}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="doctorId"
-          placeholder="Doctor ID"
-          value={formData.doctorId}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">{isEditing ? "Update" : "Add"} Patient</button>
-        {isEditing && <button onClick={resetForm}>Cancel</button>}
+    <div className="max-w-md mx-auto bg-white shadow-md rounded-lg p-6">
+      <h1 className="text-2xl font-bold text-center text-gray-700 mb-6">Book Appointment</h1>
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <div className="flex flex-col">
+          <label htmlFor="name" className="text-sm font-medium text-gray-600 mb-1">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter patient name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="age" className="text-sm font-medium text-gray-600 mb-1">
+            Age
+          </label>
+          <input
+            type="number"
+            id="age"
+            name="age"
+            placeholder="Enter age"
+            value={formData.age}
+            onChange={handleChange}
+            required
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="gender" className="text-sm font-medium text-gray-600 mb-1">
+            Gender
+          </label>
+          <select
+            id="gender"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            required
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="disease" className="text-sm font-medium text-gray-600 mb-1">
+            Disease
+          </label>
+          <input
+            type="text"
+            id="disease"
+            name="disease"
+            placeholder="Enter disease"
+            value={formData.disease}
+            onChange={handleChange}
+            required
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="doctorId" className="text-sm font-medium text-gray-600 mb-1">
+            Doctor ID
+          </label>
+          <input
+            type="number"
+            id="doctorId"
+            name="doctorId"
+            placeholder="Enter Doctor ID"
+            value={formData.doctorId}
+            onChange={handleChange}
+            required
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div className="flex justify-between mt-4">
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          >
+            Submit
+          </button>
+          <button
+            type="button"
+            className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+            onClick={resetForm}
+          >
+            Reset
+          </button>
+        </div>
       </form>
-
-      <h2>Patient List</h2>
-      <ul>
-        {patients.map((patient) => (
-          <li key={patient.id}>
-            {patient.name} - {patient.disease} - {patient.gender} - {patient.age}{" "}
-            years
-            <button onClick={() => handleEdit(patient)}>Edit</button>
-            <button onClick={() => handleDelete(patient.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };
