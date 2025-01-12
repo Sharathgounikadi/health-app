@@ -7,7 +7,7 @@ const ShowDoctors = () => {
     const [data, setData] = useState([]);
 
     const api = async () => {
-        const response = await fetch('http://localhost:5000/doctors');
+        const response = await fetch('https://health-app-helg.onrender.com/api/doctors');
         const result = await response.json();
         console.log(result);
         setData(result);
@@ -20,8 +20,9 @@ const ShowDoctors = () => {
     return (
         <div className="font-sans">
             <div className="max-w-4xl mx-auto">
-                <div className="text-center">
+                <div className="text-center flex justify-between items-center mt-8">
                     <h2 className="text-gray-800 text-4xl font-extrabold">Meet our Doctors</h2>
+                    <button className='bg-blue-300 text-black rounded-lg p-2 text-xl' onClick={()=>navigate("/adddoctors")}>Add Doctors</button>
                 </div>
 
                 <div className="grid sm:grid-cols-3 gap-8 max-sm:justify-center mt-12 max-sm:max-w-xs mx-auto">
@@ -40,6 +41,7 @@ const ShowDoctors = () => {
                                     <FaEnvelope className="inline-block mr-1" />
                                     {item.email}
                                 </p>
+                                <p className="text-xs mt-2 text-white">{item.description}</p>
                                 <div className="mt-4">
                                     <button 
                                         onClick={() => navigate(`/edit-doctor/${item.id}`)} 

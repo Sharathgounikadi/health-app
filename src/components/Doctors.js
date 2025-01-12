@@ -7,7 +7,7 @@ const Doctors = () => {
     const [data, setData] = useState([]);
 
     const api = async () => {
-        const response = await fetch('http://localhost:5000/doctors');
+        const response = await fetch('https://health-app-helg.onrender.com/api/doctors');
         const result = await response.json();
         console.log(result);
         setData(result);

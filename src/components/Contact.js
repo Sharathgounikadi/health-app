@@ -5,7 +5,7 @@ const Contact = () => {
     <div className="grid sm:grid-cols-2 items-start gap-16 p-4 mx-auto max-w-4xl bg-white font-[sans-serif]">
             <div>
                 <h1 className="text-gray-800 text-3xl font-extrabold">Let's Talk</h1>
-                <p className="text-sm text-gray-500 mt-4">Have some big idea or brand to develop and need help? Then reach out we'd love to hear about your project  and provide help.</p>
+                <p className="text-lg text-gray-500 mt-4">Meet your doctor by booking appointment </p>
 
                 <div className="mt-12">
                     <h2 className="text-gray-800 text-base font-bold">Email</h2>
@@ -19,9 +19,9 @@ const Contact = () => {
                                         data-original="#000000" />
                                 </svg>
                             </div>
-                            <a href="javascript:void(0)" className="text-[#007bff] text-sm ml-4">
+                            <a className="text-[#007bff] text-sm ml-4">
                                 <small className="block">Mail</small>
-                                <strong>info@example.com</strong>
+                                <strong>health@gmail.com</strong>
                             </a>
                         </li>
                     </ul>
@@ -52,7 +52,7 @@ const Contact = () => {
                             </a>
                         </li>
                         <li className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                            <a href="javascript:void(0)">
+                            <a >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#007bff'
                                     viewBox="0 0 24 24">
                                     <path
@@ -68,9 +68,9 @@ const Contact = () => {
             <form className="ml-auto space-y-4">
                 <input type='text' placeholder='Name'
                     className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent" />
-                <input type='email' placeholder='Email'
+                <input type='email' placeholder='Age'
                     className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent" />
-                <input type='text' placeholder='Subject'
+                <input type='text' placeholder='Disease'
                     className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent" />
                 <textarea placeholder='Message' rows="6"
                     className="w-full rounded-md px-4 bg-gray-100 text-gray-800 text-sm pt-3 outline-blue-500 focus:bg-transparent"></textarea>

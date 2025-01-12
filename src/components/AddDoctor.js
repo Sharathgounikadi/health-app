@@ -21,7 +21,7 @@ const AddDoctor = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/doctors', {
+      const response = await fetch('https://health-app-helg.onrender.com/api/doctors', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaRegEdit, FaTrashAlt } from 'react-icons/fa'; // React Icons
+import { FaRegEdit, FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const Patients = () => {
@@ -7,15 +7,24 @@ const Patients = () => {
     const [data, setData] = useState([]);
 
     const api = async () => {
-        const response = await fetch('http://localhost:5000/doctors');
-        const result = await response.json();
-        console.log(result);
-        setData(result);
-    }
+        try {
+            const response = await fetch('https://health-app-helg.onrender.com/api/patients');
+            const result = await response.json();
+            console.log(result);
+            setData(result);
+        } catch (error) {
+            console.error("Error fetching patients data:", error);
+        }
+    };
 
     useEffect(() => {
         api();
     }, []);
+
+    const handleDelete = (id) => {
+        // Implement your delete logic here (API call or state update)
+        console.log(`Deleting patient with id: ${id}`);
+    };
 
     return (
         <div className="font-sans overflow-x-auto">
@@ -29,13 +38,13 @@ const Patients = () => {
                             Age
                         </th>
                         <th className="p-4 text-left text-xs font-semibold text-gray-800">
-                            Doctor
+                            Gender
                         </th>
                         <th className="p-4 text-left text-xs font-semibold text-gray-800">
-                            Time
+                            Disease
                         </th>
                         <th className="p-4 text-left text-xs font-semibold text-gray-800">
-                            Email
+                            Doctor ID
                         </th>
                         <th className="p-4 text-left text-xs font-semibold text-gray-800">
                             Actions
@@ -50,20 +59,19 @@ const Patients = () => {
                                 {item.name}
                             </td>
                             <td className="p-4 text-[15px] text-gray-800">
-                                {item.specialty}
+                                {item.age}
                             </td>
                             <td className="p-4 text-[15px] text-gray-800">
-                                {item.experience}
+                                {item.gender}
                             </td>
                             <td className="p-4 text-[15px] text-gray-800">
-                                {item.phone}
+                                {item.disease}
                             </td>
                             <td className="p-4 text-[15px] text-gray-800">
-                                {item.email}
+                                {item.doctorId}
                             </td>
-
                             <td className="p-4">
-                                <button className="mr-4" title="Edit" onClick={() => navigate(`/edit-doctor/${item.id}`)}>
+                                <button className="mr-4" title="Edit" onClick={() => navigate(`/edit-patient/${item.id}`)}>
                                     <FaRegEdit className="w-5 fill-blue-500 hover:fill-blue-700" />
                                 </button>
                                 <button className="mr-4" title="Delete" onClick={() => handleDelete(item.id)}>
@@ -76,11 +84,6 @@ const Patients = () => {
             </table>
         </div>
     );
-}
-
-const handleDelete = (id) => {
-    // Implement your delete logic here (API call or state update)
-    console.log(`Deleting doctor with id: ${id}`);
 };
 
 export default Patients;
