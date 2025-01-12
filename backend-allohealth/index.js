@@ -5,7 +5,7 @@ const doctorRoutes = require('./routes/doctorRoutes');
 const patientRoutes = require('./routes/patientRoutes');
 
 const app = express();
-const PORT = 5000;
+const PORT = 5001; 
 
 app.use(bodyParser.json());
 app.use(cors());
