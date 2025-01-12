@@ -7,6 +7,7 @@ import Header from './Header';
 import Patients from './components/Patients';
 import Doctors from './components/Doctors';
 import Contact from './components/Contact';
+import BookAppointment from './components/BookAppointment';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/patients" element={<Patients />} />
           <Route path="/about" element={<Doctors/>} />
           <Route path="/contact" element={<Contact/>} />
+          <Route path="/appointment" element={<BookAppointment />} />
         </Routes>
       </Router>
     </div>
