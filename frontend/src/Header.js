@@ -42,11 +42,10 @@ const Header = () => {
               </Link>
             </li>
             <li className="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
-              <Link to="/about" className="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]">
+              <Link to="/contact" className="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]">
                 About
               </Link>
             </li>
-            
           </ul>
         </div>
 
